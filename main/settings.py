@@ -97,3 +97,6 @@ DEBUG_TOOLBAR_CONFIG = {
             }
 
 NTERNAL_IPS = ('127.0.0.1',)
+
+# Needed to avoid 'main.urls doesn't have any patterns' error.
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
