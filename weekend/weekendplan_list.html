@@ -1,0 +1,26 @@
+<html>
+<body>
+<div style="margin: 30px">
+{% if weekendplan_list %}
+<table class="table table-striped">
+<tr><th>Message</th><th>Completed</th><th></th><th></th></tr>
+{% for weekendplan in weekendplan_list %}
+<tr>
+<td>{{ weekendplan.what_to_do }}</td>
+<td>{{ weekendplan.when }}</td>
+<td><a href="{% url 'e_plan' weekendplan.pk %}">edit</a></td>
+<td>
+<form method="POST" action="{% url 'delete_plan' weekendplan.pk %}">
+{% csrf_token %}
+<input type="submit" class="btn btn-sm btn-danger" value="delete"></input>
+</form>
+</td>
+</tr>
+{% endfor %}
+</table>
+{% endif %}
+<p><a href="{% url 'create_plan' %}">Create a new note</a></p>
+</div>
+
+</body>
+</html>
