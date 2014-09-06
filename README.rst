@@ -5,9 +5,9 @@ To setup from source the first time, remember these steps::
 
     git clone https://github.com/edthedev/weekend-plans.git
     cd weekend-plans
-    ./setup.sh
+    make venv
+    make database
 
-To activate the project::
-
-    ./activate.sh
-    ./main/manage.py runserver
+To run the local server::
+    
+   make runserver 
