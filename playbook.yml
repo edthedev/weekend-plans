@@ -27,7 +27,7 @@
         update=yes
         force=yes
         depth=1
-        version=cosmetic
+        version=HEAD
       tags: fixed
       notify: restart_apache
     - django_manage:
