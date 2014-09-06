@@ -21,7 +21,7 @@ venv: requirements.txt
 	$(BASEDIR)/ENV/bin/pip install -r requirements.txt
 
 database: venv 
-	$(VPYTHON) $(BASEDIR)/manage.py syncdb
+	$(VPYTHON) $(BASEDIR)/manage.py migrate 
 
 runserver: venv database
 	$(VPYTHON) $(BASEDIR)/manage.py runserver

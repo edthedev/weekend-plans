@@ -4,5 +4,17 @@ from django.db import models
 
 class WeekendPlan(models.Model):
     ''' Contains the weekend plans. '''
-    what_to_do = models.CharField(max_length = 200)
-    when = models.CharField(max_length = 50)
+    what_to_do = models.CharField(
+            max_length = 200,
+            unique=True,
+            )
+    when = models.CharField(
+            max_length = 50,
+            blank=True,
+            null=True,
+            )
+    completed = models.DateTimeField(
+            default=None,
+            blank=True,
+            null=True,
+            )
