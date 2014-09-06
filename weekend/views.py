@@ -20,7 +20,7 @@ class ListPlans(ListView):
     template_name = 'weekend/weekendplan_list.html'
     # ordering = 'what_to_do'
     queryset = \
-            WeekendPlan.objects.all().order_by('what_to_do')
+            WeekendPlan.objects.all().order_by('when')
 
     #def get_queryset(self, **kwargs):
     #    return WeekendPlan.objects.get()
