@@ -3,26 +3,25 @@
 {% block content %}
 
 {% if weekendplan_list %}
-<table class="table table-striped">
-
-
-<tr><th>What to do</th><th>When</th><th></th><th></th></tr>
+<table class="table table-striped" border=1>
+	<tr><th>Completed</th><th>What to do</th><th>When</th><th></th><th></th></tr>
 {% for weekendplan in weekendplan_list %}
 <tr>
+<td>{{ weekendplan.completed }}</td>
 <td>{{ weekendplan.what_to_do }}</td>
 <td>{{ weekendplan.when }}</td>
-<td><a href="{% url 'e_plan' weekendplan.pk %}"><button type='button'>Modify</button></a></td>
+<td><a href="{% url 'edit_plan' weekendplan.pk %}"><button type='button'>Modify</button></a></td>
 <td>
-<form method="POST" action="{% url 'delete_plan' weekendplan.pk %}">
+<form method="POST" action="{% url 'list_plans' weekendplan.pk %}">
 {% csrf_token %}
-<input type="submit" value="Done"></input>
+<input type="submit" name="action" value="Completed"></input>
 </form>
 </td>
 </tr>
 {% endfor %}
 </table>
 {% endif %}
-
+<h2> Add another...? </h2>
 <div>
 	<form method="POST" action="{% url 'create_plan' %}">
 {% csrf_token %}
