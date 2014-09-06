@@ -2,8 +2,8 @@
 #  Variables you might want to modify
 ########################################
 
-# HOSTNAME=learn.delaporte.us
-HOSTNAME=sydeswype
+HOSTNAME=learn.delaporte.us
+# HOSTNAME=sydeswype
 
 ########################################
 #  Computed variables
@@ -37,7 +37,7 @@ deploy:
 	ansible-playbook playbook.yml --extra-vars="hosts=$(HOSTNAME)"
 
 fix:
-	ansible-playbook playbook.yml --tags=fixed
+	ansible-playbook playbook.yml --tags=fixed --extra-vars="hosts=$(HOSTNAME)"
 
 restart_apache:
 	ansible $(HOSTNAME) -m service -a "name=httpd state=restarted"
