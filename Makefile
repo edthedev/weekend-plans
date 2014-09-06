@@ -1,7 +1,16 @@
-BASEDIR=$(PWD)
-VPYTHON=$(BASEDIR)/ENV/bin/python
+########################################
+#  Variables you might want to modify
+########################################
+
 # HOSTNAME=learn.delaporte.us
 HOSTNAME=sydeswype
+
+########################################
+#  Computed variables
+########################################
+
+BASEDIR=$(PWD)
+VPYTHON=$(BASEDIR)/ENV/bin/python
 
 ########################################
 #  Development Tasks
