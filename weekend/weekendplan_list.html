@@ -1,9 +1,11 @@
 {% extends "base_generic.html" %}
 {% block title %}Weekend Plan{% endblock %}
 {% block content %}
-<div style="margin: 30px">
+
 {% if weekendplan_list %}
 <table class="table table-striped">
+
+
 <tr><th>What to do</th><th>When</th><th></th><th></th></tr>
 {% for weekendplan in weekendplan_list %}
 <tr>
@@ -13,15 +15,15 @@
 <td>
 <form method="POST" action="{% url 'delete_plan' weekendplan.pk %}">
 {% csrf_token %}
-<input type="submit" class="btn btn-sm btn-danger" value="delete"></input>
+<input type="submit" value="Done"></input>
 </form>
 </td>
 </tr>
 {% endfor %}
 </table>
 {% endif %}
-<p>
-<a href="{% url 'create_plan' %}">
+
+<p><a href="{% url 'create_plan' %}">
 <button type='button'>Create new plan.</button></a></p>
-</div>
+
 {% endblock %}
