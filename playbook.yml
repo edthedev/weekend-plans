@@ -1,0 +1,63 @@
+---
+# To install the Trac CSV task import plugin: 
+#   1. Setup SSH key access to spur-dev.  #   2. Add svc-sdg-trac to /etc/ansible/hosts:
+#   [sdg]
+#	spur-dev.cites.illinois.edu
+#   3. Run this playbook:
+#   ansible-playbook playbook.yml
+#   4. Visit https://sdg-trac-dev.cites.illinois.edu/trac/admin
+#      and check the box to enable the TicketImport 0.6c plugin.
+- hosts: learn.delaporte.us
+  gather_facts: False 
+  sudo: no 
+  vars:
+    - app_home: "/var/www/weekend-plans"
+    - git_repo: "https://github.com/edthedev/weekend-plans.git"
+    # Debian: - httpd_conf: /etc/apache2/apache2.conf
+    - httpd_conf: /etc/httpd/conf/httpd.conf
+    - pip_download: https://bootstrap.pypa.io/get-pip.py
+  tasks:
+    - yum:
+        name="{{ item }}"
+        state=installed
+      with_items:
+        - git-core
+        - python
+        - mod_wsgi
+    - name: install pip
+      shell: "curl {{ pip_download }} | python -"
+      args:
+        creates: "/usr/bin/pip"
+    - git: 
+        dest="{{ app_home }}" 
+        repo="{{ git_repo }}"
+        update=yes
+        force=yes
+        depth=1
+        version=cosmetic
+      tags: fixed
+    - django_manage:
+        app_path="{{ app_home }}"
+        command=syncdb
+    - pip: requirements="{{ app_home }}/requirements.txt"
+    - name: set wsgi.py
+      lineinfile: 
+        dest="{{ httpd_conf }}"
+        state=present
+        line="WSGIScriptAlias / {{ app_home }}/main/wsgi.py"
+      notify: restart_apache
+    - name: set python path
+      lineinfile: 
+        dest="{{ httpd_conf }}"
+        state=present
+        line="WSGIPythonPath {{ app_home }}"
+      notify: restart_apache
+    - name: app readable by apache
+      file: 
+        path="{{ app_home }}"
+        group=apache
+        recurse=yes
+        mode=776
+  handlers:
+    - name: restart_apache
+      shell: sudo /sbin/service httpd stop; sleep 2; sudo /sbin/service httpd start
