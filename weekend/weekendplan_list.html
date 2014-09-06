@@ -1,9 +1,10 @@
-<html>
-<body>
+{% extends "base_generic.html"}
+{% block title %}Weekend Plan{% endblock %}
+{% block content %}
 <div style="margin: 30px">
 {% if weekendplan_list %}
 <table class="table table-striped">
-<tr><th>Message</th><th>Completed</th><th></th><th></th></tr>
+<tr><th>What to do</th><th>When</th><th></th><th></th></tr>
 {% for weekendplan in weekendplan_list %}
 <tr>
 <td>{{ weekendplan.what_to_do }}</td>
@@ -21,6 +22,4 @@
 {% endif %}
 <p><a href="{% url 'create_plan' %}">Create a new note</a></p>
 </div>
-
-</body>
-</html>
+{% endblock %}
