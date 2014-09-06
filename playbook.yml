@@ -1,13 +1,6 @@
 ---
-# To install the Trac CSV task import plugin: 
-#   1. Setup SSH key access to spur-dev.  #   2. Add svc-sdg-trac to /etc/ansible/hosts:
-#   [sdg]
-#	spur-dev.cites.illinois.edu
-#   3. Run this playbook:
-#   ansible-playbook playbook.yml
-#   4. Visit https://sdg-trac-dev.cites.illinois.edu/trac/admin
-#      and check the box to enable the TicketImport 0.6c plugin.
-- hosts: learn.delaporte.us
+# Be sure to call this with --extra-vars="hosts=<hostname>"
+- hosts: "{{ hosts }}"
   gather_facts: False 
   sudo: no 
   vars:

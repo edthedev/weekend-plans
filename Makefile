@@ -1,6 +1,7 @@
 BASEDIR=$(PWD)
 VPYTHON=$(BASEDIR)/ENV/bin/python
-HOSTNAME=learn.delaporte.us
+# HOSTNAME=learn.delaporte.us
+HOSTNAME=sydeswype
 
 ########################################
 #  Development Tasks
@@ -24,7 +25,7 @@ backup_database:
 	ansible $(HOSTNAME) -m fetch -a "dest=. src=/var/www/weekend-plans/db.sqlite3"
 
 deploy:
-	ansible-playbook playbook.yml
+	ansible-playbook playbook.yml --extra-vars="hosts=$(HOSTNAME)"
 
 fix:
 	ansible-playbook playbook.yml --tags=fixed
