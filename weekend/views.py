@@ -24,7 +24,7 @@ class ListPlans(ListView):
     template_name = 'weekend/weekendplan_list.html'
     # ordering = 'what_to_do'
     queryset = \
-            WeekendPlan.objects.all().order_by('when')
+        WeekendPlan.objects.all().order_by('when').order_by('completed')
 
     def post(self, request, *args, **kwargs):
         ''' Special handling for 'complete' action. '''
