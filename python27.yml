@@ -8,10 +8,12 @@
     - py_dir: "{{ temp_dir }}/Python-2.7.6"
     - python_tar: Python-2.7.6.tgz
   tasks:
+    # - shell: yum -y groupinstall "Development tools"
     - yum:
         name="{{ item }}"
         state=installed
       with_items:
+        - gcc
         - zlib-devel
         - bzip2-devel
         - openssl-devel

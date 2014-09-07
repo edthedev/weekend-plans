@@ -10,12 +10,12 @@
     - httpd_conf: /etc/httpd/conf/httpd.conf
     - pip_download: https://bootstrap.pypa.io/get-pip.py
   tasks:
+    - include: python27.yml
     - yum:
         name="{{ item }}"
         state=installed
       with_items:
         - git-core
-        - python
         - mod_wsgi
     - name: install pip
       shell: "curl {{ pip_download }} | python -"
