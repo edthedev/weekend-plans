@@ -32,7 +32,8 @@
       notify: restart_apache
     - django_manage:
         app_path="{{ app_home }}"
-        command=syncdb
+        command=migrate
+      tags: fixed
     - pip: requirements="{{ app_home }}/requirements.txt"
     - name: set wsgi.py
       lineinfile: 

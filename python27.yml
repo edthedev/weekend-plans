@@ -1,0 +1,24 @@
+---
+# Be sure to call this with --extra-vars="hosts=<hostname>"
+- hosts: "{{ hosts }}"
+  gather_facts: False 
+  sudo: yes
+  vars:
+    - temp_dir: /tmp/python27
+    - python_tar: Python-2.7.6.tgz
+  tasks:
+    - unarchive:
+        src="{{ python_tar }}"
+        dest="{{ temp_dir }}"
+        creates="{{ temp_dir }}/Makefile"
+    - shell: "cd {{ temp_dir }}; ./configure"
+    - shell: "cd {{ temp_dir }}; make"
+    - shell: "cd {{ temp_dir }}; make altinstall"
+    - file: 
+        src="ez_setup.py"
+        dest="{{ temp_dir }}"
+    - file: 
+        src="get-pip.py"
+        dest="{{ temp_dir }}"
+    - shell: "python2.7 {{ temp_dir }}/ez_setup.py"
+    - shell: "python2.7 {{ temp_dir }}/get-pip.py"
