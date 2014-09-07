@@ -2,8 +2,9 @@
 #  Variables you might want to modify
 ########################################
 
-# HOSTNAME=learn.delaporte.us
-HOSTNAME=sydeswype
+HOSTNAME=learn.delaporte.us
+# HOSTNAME=sydeswype
+WWW_PASSWORD_FILE=/var/www/passwords
 
 ########################################
 #  Computed variables
@@ -37,10 +38,16 @@ deploy:
 	ansible-playbook playbook.yml --extra-vars="hosts=$(HOSTNAME)"
 
 fix:
-	ansible-playbook playbook.yml --tags=fixed
+	ansible-playbook playbook.yml --tags=fixed --extra-vars="hosts=$(HOSTNAME)"
 
 restart_apache:
 	ansible $(HOSTNAME) -m service -a "name=httpd state=restarted"
 
 stop_apache:
 	ansible $(HOSTNAME) -m service -a "name=httpd state=stopped"
+
+set_password:
+	ssh $(HOSTNAME) 'htpasswd -b -c $(WWW_PASSWORD_FILE) $(USERNAME) $(PASSWORD)'
+
+# Call it like this:
+#      make set_password USERNAME=leslie PASSWORD=12345

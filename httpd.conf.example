@@ -1,0 +1,6 @@
+<Location />
+AuthType Basic
+AuthName "Password Required"
+AuthUserFile /var/www/passwords
+Require valid-user
+</Location>

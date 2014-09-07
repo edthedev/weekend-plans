@@ -1,3 +1,4 @@
 *.pyc
 ENV
 db.sqlite3
+*.tgz
