@@ -10,6 +10,7 @@
     - httpd_conf: /etc/httpd/conf/httpd.conf
     - pip_download: https://bootstrap.pypa.io/get-pip.py
   tasks:
+    # The basic required software.
     - yum:
         name="{{ item }}"
         state=installed
@@ -17,10 +18,13 @@
         - git-core
         - python
         - mod_wsgi
+    # Specific libraries for this application.
     - name: install pip
       shell: "curl {{ pip_download }} | python -"
       args:
         creates: "/usr/bin/pip"
+    - pip: requirements="{{ app_home }}/requirements.txt"
+    # The application, itself.
     - git: 
         dest="{{ app_home }}" 
         repo="{{ git_repo }}"
@@ -30,10 +34,11 @@
         version=HEAD
       tags: fixed
       notify: restart_apache
-    - pip: requirements="{{ app_home }}/requirements.txt"
+    # The application database.
     - django_manage:
         app_path="{{ app_home }}"
         command=syncdb
+    # The webserver configuration.
     - name: set wsgi.py
       lineinfile: 
         dest="{{ httpd_conf }}"
