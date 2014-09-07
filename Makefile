@@ -30,6 +30,9 @@ runserver: venv database
 #  Deployment Tasks
 ########################################
 
+install_py27:
+	ansible-playbook python27.yml --extra-vars="hosts=$(HOSTNAME)"
+
 backup_database:
 	ansible $(HOSTNAME) -m fetch -a "dest=. src=/var/www/weekend-plans/db.sqlite3"
 

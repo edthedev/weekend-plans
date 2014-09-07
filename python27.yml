@@ -4,16 +4,17 @@
   gather_facts: False 
   sudo: yes
   vars:
-    - temp_dir: /tmp/python27
+    - temp_dir: /tmp
+    - py_dir: "{{ temp_dir }}/Python-2.7.6"
     - python_tar: Python-2.7.6.tgz
   tasks:
     - unarchive:
         src="{{ python_tar }}"
         dest="{{ temp_dir }}"
         creates="{{ temp_dir }}/Makefile"
-    - shell: "cd {{ temp_dir }}; ./configure"
-    - shell: "cd {{ temp_dir }}; make"
-    - shell: "cd {{ temp_dir }}; make altinstall"
+    - shell: "cd {{ py_dir }}; ./configure"
+    - shell: "cd {{ py_dir }}; make"
+    - shell: "cd {{ py_dir }}; make altinstall"
     - file: 
         src="ez_setup.py"
         dest="{{ temp_dir }}"
