@@ -4,6 +4,7 @@
 
 HOSTNAME=learn.delaporte.us
 # HOSTNAME=sydeswype
+WWW_PASSWORD_FILE=/var/www/passwords
 
 ########################################
 #  Computed variables
@@ -44,3 +45,9 @@ restart_apache:
 
 stop_apache:
 	ansible $(HOSTNAME) -m service -a "name=httpd state=stopped"
+
+set_password:
+	ssh $(HOSTNAME) 'htpasswd -b -c $(WWW_PASSWORD_FILE) $(USERNAME) $(PASSWORD)'
+
+# Call it like this:
+#      make set_password USERNAME=leslie PASSWORD=12345
