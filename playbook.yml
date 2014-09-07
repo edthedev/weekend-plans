@@ -30,10 +30,10 @@
         version=HEAD
       tags: fixed
       notify: restart_apache
+    - pip: requirements="{{ app_home }}/requirements.txt"
     - django_manage:
         app_path="{{ app_home }}"
         command=syncdb
-    - pip: requirements="{{ app_home }}/requirements.txt"
     - name: set wsgi.py
       lineinfile: 
         dest="{{ httpd_conf }}"
