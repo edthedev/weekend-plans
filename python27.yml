@@ -8,10 +8,18 @@
     - py_dir: "{{ temp_dir }}/Python-2.7.6"
     - python_tar: Python-2.7.6.tgz
   tasks:
-    - unarchive:
-        src="{{ python_tar }}"
-        dest="{{ temp_dir }}"
-        creates="{{ temp_dir }}/Makefile"
+    - yum:
+        name="{{ item }}"
+        state=installed
+      with_items:
+        - zlib-devel
+        - bzip2-devel
+        - openssl-devel
+        - ncurses-devel
+    #- unarchive:
+    #    src="{{ python_tar }}"
+    #    dest="{{ temp_dir }}"
+    #    creates="/tmp/Python-2.7.6/configure"
     - shell: "cd {{ py_dir }}; ./configure"
     - shell: "cd {{ py_dir }}; make"
     - shell: "cd {{ py_dir }}; make altinstall"
