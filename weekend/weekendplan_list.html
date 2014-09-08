@@ -19,7 +19,7 @@
 {% for weekendplan in weekendplan_list %}
 	{% if not weekendplan.completed %}
 <li id='plan-item'>
-<span clas='when'>{{ weekendplan.when }}</span> - <span class='what'>{{ weekendplan.what_to_do }}</span>
+<span class='when'>{{ weekendplan.when }}</span> - <span class='what'>{{ weekendplan.what_to_do }}</span>
 <span>
 <a href="{% url 'edit_plan' weekendplan.pk %}"><button type='button'>Modify</button></a>
 </span
@@ -40,7 +40,7 @@
 
 <script>
 var options = {
-	valueNames: [ 'when' ]
+	valueNames: [ 'when', 'what' ]
 };
 
 var hackerList = new List('plan-list', options);
