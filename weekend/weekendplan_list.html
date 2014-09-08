@@ -20,6 +20,16 @@
 	{% if not weekendplan.completed %}
 <li id='plan-item'>
 <span clas='when'>{{ weekendplan.when }}</span> - <span class='what'>{{ weekendplan.what_to_do }}</span>
+<span>
+<a href="{% url 'edit_plan' weekendplan.pk %}"><button type='button'>Modify</button></a>
+</span
+<span>
+<form method="POST" action="{% url 'list_plans' weekendplan.pk %}">
+{% csrf_token %}
+<input type="submit" name="action" value="Completed"></input>
+</form>
+</span>
+
 </li>
 	{% endif %}
 {% endfor %}
