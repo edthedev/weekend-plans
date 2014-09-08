@@ -1,5 +1,4 @@
-.button
-{
+button, input[type="button"], input[type="submit"] {
 	width: 72 px;
 	height: 72 px;
 }
