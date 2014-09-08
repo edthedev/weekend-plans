@@ -1,0 +1,94 @@
+{% extends "base_generic.html" %}
+{% block title %}Weekend Plan{% endblock %}
+{% block content %}
+
+
+<!-- Automatic List sorter -->
+
+<!-- Maybe later 
+    <span class="sort" data-sort="when">Sort by when</span>
+    <span class="sort" data-sort="what">Sort by what</span>
+-->
+
+<div id="plan-list">
+<p> Filter your plans: <input class="search" /></p>
+
+<h2> Upcoming plans </h2>
+{% if weekendplan_list %}
+<ul class='list'>
+{% for weekendplan in weekendplan_list %}
+	{% if not weekendplan.completed %}
+<li id='plan-item'>
+<span class='when'>{{ weekendplan.when }}</span> - <span class='what'>{{ weekendplan.what_to_do }}</span>
+<span>
+<a href="{% url 'edit_plan' weekendplan.pk %}"><button type='button'>Modify</button></a>
+</span
+<span>
+<form method="POST" action="{% url 'list_plans' weekendplan.pk %}">
+{% csrf_token %}
+<input type="submit" name="action" value="Completed"></input>
+</form>
+</span>
+
+</li>
+	{% endif %}
+{% endfor %}
+{% endif %}
+</ul>
+</div>
+
+
+<script>
+var options = {
+	valueNames: [ 'what', 'when' ]
+};
+
+var hackerList = new List('plan-list', options);
+</script>
+<!-- Original Table -->
+<table class="table table-striped" border=1 width=100%>
+	<tr>
+		<th>What to do</th>
+		<th>When</th>
+		<th>Buttons</th>
+	</tr>
+{% for weekendplan in weekendplan_list %}
+<tr
+	{% if weekendplan.completed %}
+		bgcolor="#00dddd"
+	{% endif %}	
+>
+<td>{{ weekendplan.what_to_do }}</td>
+<td>{{ weekendplan.when }}</td>
+<td><a href="{% url 'edit_plan' weekendplan.pk %}"><button type='button'>Modify</button></a>
+<form method="POST" action="{% url 'list_plans' weekendplan.pk %}">
+{% csrf_token %}
+<input type="submit" name="action" value="Completed"></input>
+</form>
+</td>
+</tr>
+{% endfor %}
+</table>
+<h2> Add another...? </h2>
+<div>
+	<form method="POST" action="{% url 'create_plan' %}">
+{% csrf_token %}
+{{ form.as_ul }}
+<input type="submit" class="btn btn-primary" value="Add">
+</form>
+</div>
+{% endblock %}
+
+<!-- Another list - Complete plans -->
+<h2> Completed plans </h2>
+{% if weekendplan_list %}
+<ul>
+{% for weekendplan in weekendplan_list %}
+{% if weekendplan.completed %}
+<li>
+{{ weekendplan.completed }} - {{ weekendplan.what_to_do }}
+</li>
+{% endif %}
+{% endfor %}
+{% endif %}
+

@@ -31,7 +31,7 @@
         update=yes
         force=yes
         depth=1
-        version=cosmetic
+        version=mergestyles
       tags: fixed
       notify: restart_apache
     # The application database.
