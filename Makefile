@@ -34,10 +34,13 @@ runserver: venv database
 backup_database:
 	ansible $(HOSTNAME) -m fetch -a "dest=. src=/var/www/weekend-plans/db.sqlite3"
 
-deploy:
+git_push:
+	git push
+
+deploy: git_push
 	ansible-playbook playbook.yml --extra-vars="hosts=$(HOSTNAME)"
 
-fix:
+fix: git_push
 	ansible-playbook playbook.yml --tags=fixed --extra-vars="hosts=$(HOSTNAME)"
 
 restart_apache:
