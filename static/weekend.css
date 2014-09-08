@@ -9,6 +9,8 @@ body {
 
 /* Let's stop hating people with big fingers. */
 button, input[type="button"], input[type="submit"] {
+	height: 100%;
+	width:100%;
 	min-width: 72 px;
 	min-height: 72 px;
 	display: block;
