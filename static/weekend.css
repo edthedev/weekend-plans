@@ -2,7 +2,7 @@ body {
 	background-color: #b0c4ce;
 } 
 button, input[type="button"], input[type="submit"] {
-	width: 72 px;
-	min-height: 72000 px;
-	display: inline-block;
+	min-width: 72 px;
+	min-height: 72 px;
+	display: block;
 }
