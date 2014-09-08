@@ -2,7 +2,38 @@
 {% block title %}Weekend Plan{% endblock %}
 {% block content %}
 
+
+<!-- Automatic List sorter -->
+<div id="hacker-list">
+
+    <input class="search" />
+    <span class="sort" data-sort="when">Sort by when</span>
+    <span class="sort" data-sort="what">Sort by what</span>
+
+
+<h2> Incomplete plans </h2>
 {% if weekendplan_list %}
+<ul class='list'>
+{% for weekendplan in weekendplan_list %}
+	{% if not weekendplan.completed %}
+<li id='hacker-item'>
+<p clas='when'>{{ weekendplan.when }}</p> - <p class='what'>{{ weekendplan.what_to_do }}</p>
+</li>
+	{% endif %}
+{% endfor %}
+{% endif %}
+</ul>
+</div>
+
+
+<script>
+var options = {
+	valueNames: [ 'when', 'what' ]
+};
+
+var hackerList = new List('hacker-list', options);
+</script>
+<!-- Original Table -->
 <table class="table table-striped" border=1 width=100%>
 	<tr>
 		<th>What to do</th>
@@ -26,7 +57,6 @@
 </tr>
 {% endfor %}
 </table>
-{% endif %}
 <h2> Add another...? </h2>
 <div>
 	<form method="POST" action="{% url 'create_plan' %}">
@@ -36,3 +66,17 @@
 </form>
 </div>
 {% endblock %}
+
+<!-- Another list - Complete plans -->
+<h2> Completed plans </h2>
+{% if weekendplan_list %}
+<ul>
+{% for weekendplan in weekendplan_list %}
+{% if weekendplan.completed %}
+<li>
+{{ weekendplan.completed }} - {{ weekendplan.what_to_do }}
+</li>
+{% endif %}
+{% endfor %}
+{% endif %}
+
