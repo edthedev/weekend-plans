@@ -45,6 +45,12 @@
         state=present
         line="WSGIScriptAlias / {{ app_home }}/main/wsgi.py"
       notify: restart_apache
+    - name: setup apache static files
+      lineinfile: 
+        dest="{{ httpd_conf }}"
+        state=present
+        line="Alias /static {{ app_home }}/static"
+      notify: restart_apache
     - name: set python path
       lineinfile: 
         dest="{{ httpd_conf }}"
