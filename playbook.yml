@@ -63,6 +63,11 @@
         group=apache
         recurse=yes
         mode=776
+    - file:
+        state=link
+        src=/usr/share/zoneinfo/America/Chicago
+        dest=/etc/localtime
+        force=yes
   handlers:
     - name: restart_apache
       shell: sudo /sbin/service httpd stop; sleep 2; sudo /sbin/service httpd start
