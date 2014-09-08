@@ -4,20 +4,22 @@
 
 
 <!-- Automatic List sorter -->
-<div id="hacker-list">
 
-    <input class="search" />
+<!-- Maybe later 
     <span class="sort" data-sort="when">Sort by when</span>
     <span class="sort" data-sort="what">Sort by what</span>
+-->
 
+<div id="plan-list">
+<p> Filter your plans: <input class="search" /></p>
 
-<h2> Incomplete plans </h2>
+<h2> Upcoming plans </h2>
 {% if weekendplan_list %}
 <ul class='list'>
 {% for weekendplan in weekendplan_list %}
 	{% if not weekendplan.completed %}
-<li id='hacker-item'>
-<p clas='when'>{{ weekendplan.when }}</p> - <p class='what'>{{ weekendplan.what_to_do }}</p>
+<li id='plan-item'>
+<span clas='when'>{{ weekendplan.when }}</span> - <span class='what'>{{ weekendplan.what_to_do }}</span>
 </li>
 	{% endif %}
 {% endfor %}
@@ -31,7 +33,7 @@ var options = {
 	valueNames: [ 'when', 'what' ]
 };
 
-var hackerList = new List('hacker-list', options);
+var hackerList = new List('plan-list', options);
 </script>
 <!-- Original Table -->
 <table class="table table-striped" border=1 width=100%>
