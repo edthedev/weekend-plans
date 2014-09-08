@@ -46,30 +46,7 @@ var options = {
 var hackerList = new List('plan-list', options);
 </script>
 <!-- Original Table -->
-<table class="table table-striped" border=1 width=100%>
-	<tr>
-		<th>What to do</th>
-		<th>When</th>
-		<th>Buttons</th>
-	</tr>
-{% for weekendplan in weekendplan_list %}
-<tr
-	{% if weekendplan.completed %}
-		bgcolor="#00dddd"
-	{% endif %}	
->
-<td>{{ weekendplan.what_to_do }}</td>
-<td>{{ weekendplan.when }}</td>
-<td><a href="{% url 'edit_plan' weekendplan.pk %}"><button type='button'>Modify</button></a>
-<form method="POST" action="{% url 'list_plans' weekendplan.pk %}">
-{% csrf_token %}
-<input type="submit" name="action" value="Completed"></input>
-</form>
-</td>
-</tr>
-{% endfor %}
-</table>
-<h2> Add another...? </h2>
+<h2> Make more plans:  </h2>
 <div>
 	<form method="POST" action="{% url 'create_plan' %}">
 {% csrf_token %}
