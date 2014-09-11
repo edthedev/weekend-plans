@@ -13,6 +13,16 @@
 <div id="plan-list">
 <p> Filter your plans: <input class="search" /></p>
 
+<!-- Add Form -->
+<h2> Make more plans:  </h2>
+<div>
+	<form method="POST" action="{% url 'create_plan' %}">
+{% csrf_token %}
+{{ form.as_ul }}
+<input type="submit" class="btn btn-primary" value="Add">
+</form>
+</div>
+
 <h2> Upcoming plans </h2>
 {% if weekendplan_list %}
 <ul class='list'>
@@ -45,15 +55,6 @@ var options = {
 
 var hackerList = new List('plan-list', options);
 </script>
-<!-- Original Table -->
-<h2> Make more plans:  </h2>
-<div>
-	<form method="POST" action="{% url 'create_plan' %}">
-{% csrf_token %}
-{{ form.as_ul }}
-<input type="submit" class="btn btn-primary" value="Add">
-</form>
-</div>
 
 <!-- Another list - Complete plans -->
 <h2> Completed plans </h2>
