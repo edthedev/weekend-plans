@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+{% block title %}Completed Weekend Plans{% endblock %}
+{% block content %}
+
+
+<!-- Automatic List sorter -->
+<div id="plan-list">
+<p> Filter your plans: <input class="search" /></p>
+
+<script>
+var options = {
+	valueNames: [ 'what', 'when' ]
+};
+
+var hackerList = new List('plan-list', options);
+</script>
+
+<!-- Another list - Complete plans -->
+<h2> Completed plans </h2>
+{% if weekendplan_list %}
+<ul>
+{% for weekendplan in weekendplan_list %}
+<li>
+<span class='when'>{{ weekendplan.completed }}</span> - <span class='what'>{{ weekendplan.what_to_do }}</span>
+</li>
+{% endfor %}
+{% endif %}
+
+{% endblock %}

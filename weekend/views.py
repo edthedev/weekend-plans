@@ -19,7 +19,14 @@ class CreateForm(ModelForm):
         model = WeekendPlan
         # fields = ['what_to_do']
 
+class ListCompletedPlans(ListView):
+    ''' Show the list of all completed plans. '''
+    template_name = 'weekend/weekendplan_list_completed.html'
+    queryset = \
+        WeekendPlan.objects.filter(completed__isnull==False)
+
 class ListPlans(ListView):
+    ''' Show the list of non-completed plans. '''
     # model = WeekendPlan
     template_name = 'weekend/weekendplan_list.html'
     # ordering = 'what_to_do'
