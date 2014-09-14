@@ -36,6 +36,16 @@
 </head>
 <body>
 	<h1>{% block title %}{% endblock %}</h1>
+	{% block nav %}
+	<nav class='navbar' role='navigation'>	
+	<div class='container-fluid'>
+	<ul class='nav navbar-nav'>
+		<li><a href="/">Weekend Plans</a></li>
+		<li><a href="/completed">Completed Plans</a></li>
+	</ul>
+	</div>
+	</nav>
+	{% endblock %}
 	{% block content %}{% endblock %}
 </body>
 </html>
