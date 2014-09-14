@@ -8,28 +8,31 @@
 	<!-- Don't suck at default zoom level. -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 
+
+    <!-- JQuery for JQueryUI and Bootstrap-->
+
+	<script src=
+		"{% static "jquery/jquery-1.11.1.js" %}"></script>
+
     <!-- Boostrap -->
 
 	<link href=
-	"{% static "bootstrap/css/bootstrap.min.css" %}"
+	"{% static "bootstrap/css/bootstrap.css" %}"
 		rel="stylesheet">
 
 	<link href=
-	"{% static "bootstrap/css/bootstrap-theme.min.css" %}"
+	"{% static "bootstrap/css/bootstrap-theme.css" %}"
 		rel="stylesheet">
 
-	<link href=
-	"{% static "bootstrap/js/bootstrap.min.js" %}"
-		rel="stylesheet">
+	<script src=
+		"{% static "bootstrap/js/bootstrap.js" %}"></script>
 
 	<!-- Weekend plan app specific CSS -->
 	<link href="{% static "weekend.css" %}" rel="stylesheet">
 
-	<!-- JQuery UI Date Picker -->
+	<!-- JQuery UI for Date Picker -->
 	<link rel="stylesheet" 
 		href="{% static "jquery-ui-1.11.1/jquery-ui.css" %}">
-	<script src=
-		"{% static "jquery/jquery-1.11.1.js" %}"></script>
 	<script src=
 		"{% static "jquery-ui-1.11.1/jquery-ui.js" %}"></script>
 
@@ -49,29 +52,29 @@
 <!-- Start of Navigation -->
 {% block nav %}
 <div>
-<nav role="navigation" class="navbar navbar-default"> 	
-<div class="navbar-header">
-<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-<span class="sr-only">Toggle navigation</span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</button>
-<a href="/" class="navbar-brand">Weekend Plans</a>
-</div>
-<!-- Collection of nav links and other content for toggling -->
-<div id="navbarCollapse" class="collapse navbar-collapse">
-<ul class="nav navbar-nav">
-<li class="active"><a href="#">Home</a></li>
-<li><a href="{% url 'completed_plans' %}" class="navbar-brand">Completed Plans</a></li>
-<li><a href="#">Profile</a></li>
-<li><a href="#">Messages</a></li>
-</ul>
-<ul class="nav navbar-nav navbar-right">
-<li><a href="#">Login</a></li>
-</div>
+<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'list_plans' %}">Weekend Plans</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'create_plan' %}">Create a plan</a></li>
+        <li><a href="{% url 'completed_plans' %}">Completed plans</a></li>
+        <li><a href="{% url 'shopping_list' %}">Shopping</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
-</div>
 {% endblock %}
 <!-- End of Navigation -->
 

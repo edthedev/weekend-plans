@@ -1,4 +1,12 @@
 from django.shortcuts import render
+from django.forms import ModelForm
+from django.views.generic.list import ListView
+
+from shopping.models import PlanToBuy
+
+class CreateForm(ModelForm):
+    class Meta:
+        model = PlanToBuy
 from django.views.generic.list import ListView
 
 from shopping.models import PlanToBuy
