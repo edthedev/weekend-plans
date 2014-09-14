@@ -36,6 +36,7 @@
 </head>
 <body>
 	<h1>{% block title %}{% endblock %}</h1>
+	{% block content %}{% endblock %}
 	{% block nav %}
 	<nav class='navbar' role='navigation'>	
 	<div class='container-fluid'>
@@ -46,6 +47,5 @@
 	</div>
 	</nav>
 	{% endblock %}
-	{% block content %}{% endblock %}
 </body>
 </html>
