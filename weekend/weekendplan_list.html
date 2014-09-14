@@ -27,7 +27,7 @@
 {% if weekendplan_list %}
 <ul class='list'>
 {% for weekendplan in weekendplan_list %}
-	{% if not weekendplan.completed %}
+	{% if weekendplan.when %}
 <li id='plan-item'>
 <span class='when'>{{ weekendplan.when }}</span> - <span class='what'>{{ weekendplan.what_to_do }}</span>
 <span>
@@ -47,6 +47,30 @@
 </ul>
 </div>
 
+<div>
+<h2> Unscheduled Plans </h2>
+{% if weekendplan_list %}
+<ul class='list'>
+{% for weekendplan in weekendplan_list %}
+	{% if not weekendplan.when %}
+<li id='plan-item'>
+<span class='what'>{{ weekendplan.what_to_do }}</span>
+<span>
+<a href="{% url 'edit_plan' weekendplan.pk %}"><button type='button'>Modify</button></a>
+</span
+<span>
+<form method="POST" action="{% url 'list_plans' weekendplan.pk %}">
+{% csrf_token %}
+<input type="submit" name="action" value="Completed"></input>
+</form>
+</span>
+
+</li>
+	{% endif %}
+{% endfor %}
+{% endif %}
+</ul>
+</div>
 
 <script>
 var options = {
@@ -55,18 +79,5 @@ var options = {
 
 var hackerList = new List('plan-list', options);
 </script>
-
-<!-- Another list - Complete plans -->
-<h2> Completed plans </h2>
-{% if weekendplan_list %}
-<ul>
-{% for weekendplan in weekendplan_list %}
-{% if weekendplan.completed %}
-<li>
-{{ weekendplan.completed }} - {{ weekendplan.what_to_do }}
-</li>
-{% endif %}
-{% endfor %}
-{% endif %}
 
 {% endblock %}
