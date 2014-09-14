@@ -31,7 +31,7 @@
         update=yes
         force=yes
         depth=1
-        version=cosmetic
+        version=feature
       tags: fixed
       notify: restart_apache
     # The application database.
