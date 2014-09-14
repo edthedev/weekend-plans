@@ -56,17 +56,4 @@ var options = {
 var hackerList = new List('plan-list', options);
 </script>
 
-<!-- Another list - Complete plans -->
-<h2> Completed plans </h2>
-{% if weekendplan_list %}
-<ul>
-{% for weekendplan in weekendplan_list %}
-{% if weekendplan.completed %}
-<li>
-{{ weekendplan.completed }} - {{ weekendplan.what_to_do }}
-</li>
-{% endif %}
-{% endfor %}
-{% endif %}
-
 {% endblock %}
