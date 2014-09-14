@@ -10,7 +10,7 @@ class PlanToBuy(models.Model):
             max_length = 200,
             unique=True,
             )
-    plan_to_buy = models.DateTimeField(
+    expected_purchase_date = models.DateTimeField(
             default=None,
             blank=True,
             null=True,
