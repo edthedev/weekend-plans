@@ -36,8 +36,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'south', # provides migrate command before Django 1.7
     'debug_toolbar',
     'weekend',
+    'shopping',
 )
 
 MIDDLEWARE_CLASSES = (
