@@ -1,3 +1,4 @@
+''' Shopping Views '''
 from django.shortcuts import redirect
 from django.forms import ModelForm
 from django.views.generic.list import ListView
@@ -27,7 +28,6 @@ class ListPlanToBuy(ListView):
 
     def post(self, request, *args, **kwargs):
         ''' Special handling for 'Bought' action. '''
-        print str(self)
         if 'Bought' in request.POST['action']:
             pk = kwargs['pk']
             plan = PlanToBuy.objects.get(pk=pk)
