@@ -59,10 +59,17 @@
 <a href="{% url 'edit_plan' weekendplan.pk %}"><button type='button'>Modify</button></a>
 </span
 <span>
+<!-- Complete button -->
 <form method="POST" action="{% url 'list_plans' weekendplan.pk %}">
 {% csrf_token %}
 <input type="submit" name="action" value="Completed"></input>
 </form>
+<!-- Delete button -->
+<form method="POST" action="{% url 'list_plans' weekendplan.pk %}">
+{% csrf_token %}
+<input type="submit" name="action" value="Delete"></input>
+</form>
+
 </span>
 
 </li>

@@ -52,6 +52,7 @@
 <!-- Start of Navigation -->
 {% block nav %}
 <nav class="navbar navbar-default" role="navigation">
+<div>
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -69,6 +70,7 @@
       <ul class="nav navbar-nav">
         <li><a href="{% url 'create_plan' %}">Create a plan</a></li>
         <li><a href="{% url 'completed_plans' %}">Completed plans</a></li>
+        <li><a href="{% url 'shopping_list' %}">Shopping</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

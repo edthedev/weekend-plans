@@ -24,6 +24,9 @@ venv: requirements.txt
 database: venv 
 	$(VPYTHON) $(BASEDIR)/manage.py syncdb
 
+migrate: venv database
+	$(VPYTHON) $(BASEDIR)/manage.py migrate
+
 runserver: venv database
 	$(VPYTHON) $(BASEDIR)/manage.py runserver
 

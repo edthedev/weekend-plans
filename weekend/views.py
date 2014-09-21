@@ -42,6 +42,10 @@ class ListPlans(ListView):
             plan = WeekendPlan.objects.get(pk=pk)
             plan.completed = datetime.now()
             plan.save()
+        if 'Delete' in request.POST['action']:
+            pk = kwargs['pk']
+            plan = WeekendPlan.objects.get(pk=pk)
+            plan.delete()
         return redirect('list_plans')
 
     def get_context_data(self, **kwargs):
