@@ -6,7 +6,7 @@ class WeekendPlan(models.Model):
     ''' Contains the weekend plans. '''
     what_to_do = models.CharField(
             max_length = 200,
-            unique=True,
+            unique=False,
             )
     when = models.CharField(
             max_length = 50,
