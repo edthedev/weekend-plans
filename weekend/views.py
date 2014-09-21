@@ -24,6 +24,7 @@ class ListCompletedPlans(ListView):
     template_name = 'weekend/weekendplan_list_completed.html'
     queryset = \
         WeekendPlan.objects.filter(completed__isnull=False)
+    # paginate_by = 10
 
 class ListPlans(ListView):
     ''' Show the list of non-completed plans. '''
