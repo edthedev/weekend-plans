@@ -29,16 +29,17 @@
 {% for weekendplan in weekendplan_list %}
 	{% if weekendplan.when %}
 <li id='plan-item'>
-<span class='when'>{{ weekendplan.when }}</span> - <span class='what'>{{ weekendplan.what_to_do }}</span>
-<span>
-<a href="{% url 'edit_plan' weekendplan.pk %}"><button type='button'>Modify</button></a>
-</span
-<span>
+<p> <span class='when'>{{ weekendplan.when }} - {{ weekendplan.what_to_do }}
+</span> </p>
+<p>
 <form method="POST" action="{% url 'list_plans' weekendplan.pk %}">
+<div class='btn-group'>
+<a href="{% url 'edit_plan' weekendplan.pk %}"><button class='btn' type='button'>Modify</button></a>
 {% csrf_token %}
-<input type="submit" name="action" value="Completed"></input>
+<input type="submit" name="action" value="Completed" class='btn btn-primary'></input>
+</div>
 </form>
-</span>
+</p>
 
 </li>
 	{% endif %}
@@ -55,22 +56,14 @@
 	{% if not weekendplan.when %}
 <li id='plan-item'>
 <span class='what'>{{ weekendplan.what_to_do }}</span>
-<span>
-<a href="{% url 'edit_plan' weekendplan.pk %}"><button type='button'>Modify</button></a>
-</span
-<span>
-<!-- Complete button -->
-<form method="POST" action="{% url 'list_plans' weekendplan.pk %}">
-{% csrf_token %}
-<input type="submit" name="action" value="Completed"></input>
-</form>
 <!-- Delete button -->
-<form method="POST" action="{% url 'list_plans' weekendplan.pk %}">
+<form role='form' class='form-inline' method="POST" action="{% url 'list_plans' weekendplan.pk %}">
 {% csrf_token %}
-<input type="submit" name="action" value="Delete"></input>
+<div class='btn-group'>
+<a href="{% url 'edit_plan' weekendplan.pk %}"><button class='btn btn-primary' type='button'>Modify</button></a>
+<input type="submit" name="action" class='btn' value="Delete"></input>
+</div>
 </form>
-
-</span>
 
 </li>
 	{% endif %}
