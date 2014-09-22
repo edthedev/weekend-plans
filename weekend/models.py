@@ -7,6 +7,7 @@ class WeekendPlan(models.Model):
     what_to_do = models.CharField(
             max_length = 200,
             unique=False,
+            null=False,
             )
     when = models.CharField(
             max_length = 50,
