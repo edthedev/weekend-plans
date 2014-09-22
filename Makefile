@@ -24,18 +24,30 @@ venv: requirements.txt
 database: venv 
 	$(VPYTHON) $(BASEDIR)/manage.py syncdb
 
+runserver: venv database
+	$(VPYTHON) $(BASEDIR)/manage.py runserver
+
+########################################
+#  Database tasks
+########################################
+
+backup_database:
+	ansible $(HOSTNAME) -m fetch -a "flat=yes dest=./db.sqlite3 src=/var/www/weekend-plans/db.sqlite3"
+
 migrate: venv database
 	$(VPYTHON) $(BASEDIR)/manage.py migrate
 
-runserver: venv database
-	$(VPYTHON) $(BASEDIR)/manage.py runserver
+whut: venv 
+	$(VPYTHON) $(BASEDIR)/manage.py schemamigration --auto weekend
+
+init_south: venv 
+	$(VPYTHON) $(BASEDIR)/manage.py schemamigration --initial weekend
+
 
 ########################################
 #  Deployment Tasks
 ########################################
 
-backup_database:
-	ansible $(HOSTNAME) -m fetch -a "flat=yes dest=./db.sqlite3 src=/var/www/weekend-plans/db.sqlite3"
 
 git_push:
 	git push
