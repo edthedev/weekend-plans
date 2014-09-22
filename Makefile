@@ -35,7 +35,7 @@ runserver: venv database
 ########################################
 
 backup_database:
-	ansible $(HOSTNAME) -m fetch -a "dest=. src=/var/www/weekend-plans/db.sqlite3"
+	ansible $(HOSTNAME) -m fetch -a "flat=yes dest=./db.sqlite3 src=/var/www/weekend-plans/db.sqlite3"
 
 git_push:
 	git push
