@@ -23,7 +23,8 @@ class ListCompletedPlans(ListView):
     ''' Show the list of all completed plans. '''
     template_name = 'weekend/weekendplan_list_completed.html'
     queryset = \
-        WeekendPlan.objects.filter(completed__isnull=False)
+        WeekendPlan.objects.filter(
+                completed__isnull=False).order_by('-completed', 'what_to_do')
     # paginate_by = 10
 
 class ListPlans(ListView):
