@@ -12,7 +12,7 @@
 <h2> Completed plans </h2>
 {% if weekendplan_list %}
 <ul class='list'>
-{% for weekendplan in weekendplan_list %}
+{% for weekendplan in weekendplan_list reversed %}
 <li id='plan-item'>
 <span class='when'>{{ weekendplan.completed }}</span> - <span class='what'>{{ weekendplan.what_to_do }}</span>
 </li>
