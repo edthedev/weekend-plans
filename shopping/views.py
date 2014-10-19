@@ -2,6 +2,7 @@
 from django.shortcuts import redirect
 from django.forms import ModelForm
 from django.views.generic.list import ListView
+from django.views.generic.edit import FormView
 
 # from datetimewidget.widgets import DateWidget
 
@@ -9,7 +10,7 @@ from shopping.models import PlanToBuy
 
 from datetime import datetime
 
-class CreateForm(ModelForm):
+class ShoppingForm(ModelForm):
     class Meta:
         model = PlanToBuy
 #        widgets = {
@@ -19,6 +20,16 @@ class CreateForm(ModelForm):
 #                usel10n = True,
 #                bootstrap_version=3)
 #        }
+
+class ShoppingView(FormView):
+    template_name = 'shopping/shopping_list.html'
+    form_class = ShoppingForm
+
+    def get_context_data(self, **kwargs):
+        ''' Include a list'''
+        context = super(ShoppingView, self).get_context_data(**kwargs)
+        context['shopping_list'] = \
+                PlanToBuy.objects.filter(bought__isnull=True).order_by('added', 'name')
 
 class ListPlanToBuy(ListView):
     ''' Show the list of non-completed plans. '''
@@ -39,6 +50,6 @@ class ListPlanToBuy(ListView):
     def get_context_data(self, **kwargs):
         ''' Include the edit for below. '''
         context = super(ListPlanToBuy, self).get_context_data(**kwargs)
-        context['form'] = CreateForm
+        context['form'] = ShoppingForm
         return context
 

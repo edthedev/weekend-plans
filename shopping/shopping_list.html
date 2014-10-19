@@ -11,9 +11,9 @@
 <!-- Add Form -->
 <h2> Add items:  </h2>
 <div>
-<form method="POST" action="{% url 'create_shopping' %}"> 
+<form method="POST" action="{% url 'shopping' %}"> 
 {% csrf_token %}
-{{ form.as_p }}
+{{ form }}
 <input type="submit" class="btn btn-primary" value="Add">
 </form>
 </div>
@@ -27,7 +27,7 @@
 <li id='plan-item'>
 <span class='when'>{{ plan.added }}</span> - <span class='what'>{{ plan.name }}</span>
 <span>
-<a href="{% url 'shopping_edit' plan.pk %}"><button type='button'>Modify</button></a>
+<a href="{% url 'shopping' plan.pk %}"><button type='button'>Modify</button></a>
 </span
 <span>
 
