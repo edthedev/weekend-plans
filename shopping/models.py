@@ -13,6 +13,7 @@ class PlanToBuy(models.Model):
     price = models.DecimalField(
             decimal_places=2,
             max_digits=8,
+            default=None,
             blank=True,
             null=True)
     expected_purchase_date = models.DateTimeField(

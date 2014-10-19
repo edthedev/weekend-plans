@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.forms import ModelForm
 from django.views.generic.list import ListView
 
-from datetimewidget.widgets import DateWidget
+# from datetimewidget.widgets import DateWidget
 
 from shopping.models import PlanToBuy
 
@@ -12,13 +12,13 @@ from datetime import datetime
 class CreateForm(ModelForm):
     class Meta:
         model = PlanToBuy
-        widgets = {
+#        widgets = {
 #Use localization and bootstrap 3
-            'datetime': DateWidget(
-                attrs={'id':"yourdatetimeid"},
-                usel10n = True,
-                bootstrap_version=3)
-        }
+#            'datetime': DateWidget(
+#                attrs={'id':"yourdatetimeid"},
+#                usel10n = True,
+#                bootstrap_version=3)
+#        }
 
 class ListPlanToBuy(ListView):
     ''' Show the list of non-completed plans. '''
@@ -28,6 +28,7 @@ class ListPlanToBuy(ListView):
 
     def post(self, request, *args, **kwargs):
         ''' Special handling for 'Bought' action. '''
+
         if 'Bought' in request.POST['action']:
             pk = kwargs['pk']
             plan = PlanToBuy.objects.get(pk=pk)

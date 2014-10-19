@@ -11,13 +11,15 @@
 <!-- Add Form -->
 <h2> Add items:  </h2>
 <div>
-	<form method="POST" action="{% url 'create_plan' %}">
+<form method="POST" action="{% url 'create_shopping' %}"> 
 {% csrf_token %}
-{{ form.as_ul }}
+{{ form.as_p }}
 <input type="submit" class="btn btn-primary" value="Add">
 </form>
 </div>
+<!-- / Add Form -->
 
+<!-- List -->
 <h2> Shopping Plan</h2>
 {% if plantobuy_list %}
 <ul class='list'>
@@ -28,6 +30,7 @@
 <a href="{% url 'shopping_edit' plan.pk %}"><button type='button'>Modify</button></a>
 </span
 <span>
+
 <form method="POST" action="{% url 'shopping_list' weekendplan.pk %}">
 {% csrf_token %}
 <input type="submit" name="action" value="Bought"></input>
@@ -39,6 +42,7 @@
 {% endif %}
 </ul>
 </div>
+<!-- / List -->
 
 <script>
 var options = {
