@@ -11,6 +11,6 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include(weekend.urls)),
-    url(r'shopping/', include(shopping.urls)),
-    url(r'api/', include(rest_framework.urls, namespace='rest_framework')),
+    url(r'^shopping/', include(shopping.urls)),
+    url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
 )
