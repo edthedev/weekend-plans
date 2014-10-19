@@ -37,20 +37,19 @@ backup_database:
 upload_database:
 	ansible $(HOSTNAME) -m copy -a "src=./db.sqlite3 dest=/var/www/weekend-plans/db.sqlite3"
 
-migrate: venv database
+# Django 1.7 migrate: venv database
+#$(VPYTHON) $(BASEDIR)/manage.py migrate
+
+migrate: venv 
 	$(VPYTHON) $(BASEDIR)/manage.py migrate
 
-whut: venv 
-	$(VPYTHON) $(BASEDIR)/manage.py schemamigration --auto weekend
-
-init_south: venv 
-	$(VPYTHON) $(BASEDIR)/manage.py schemamigration --initial weekend
+init_south_shopping: venv 
+	$(VPYTHON) $(BASEDIR)/manage.py schemamigration --initial shopping
 
 
 ########################################
 #  Deployment Tasks
 ########################################
-
 
 git_push:
 	git push
