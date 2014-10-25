@@ -44,13 +44,13 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'main.urls'
@@ -108,3 +108,29 @@ NTERNAL_IPS = ('127.0.0.1',)
 
 # Needed to avoid 'main.urls doesn't have any patterns' error.
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+
+# debug_toolbar settings
+if DEBUG:
+    INTERNAL_IPS = ('127.0.0.1',)
+    MIDDLEWARE_CLASSES += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+
+#    DEBUG_TOOLBAR_PANELS = (
+#        'debug_toolbar.panels.version.VersionsPanel',
+#        'debug_toolbar.panels.timer.TimerPanel',
+#        # 'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+#        'debug_toolbar.panels.headers.HeadersPanel',
+#        'debug_toolbar.panels.profiling.ProfilingPanel',
+#        'debug_toolbar.panels.request_vars.RequestPanel',
+#        'debug_toolbar.panels.sql.SQLPanel',
+#        'debug_toolbar.panels.template.TemplatesPanel',
+#        'debug_toolbar.panels.cache.CachePanel',
+#        'debug_toolbar.panels.logger.LoggingPanel',
+#        'debug_toolbar.panels.signals.SignalsPanel',
+#    )
+
+    #DEBUG_TOOLBAR_CONFIG = {
+    #    'INTERCEPT_REDIRECTS': False,
+    #}
