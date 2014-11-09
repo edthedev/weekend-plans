@@ -6,8 +6,12 @@
   vars:
     - app_home: "/var/www/weekend-plans"
     - git_repo: "https://github.com/edthedev/weekend-plans.git"
-    # Debian: - httpd_conf: /etc/apache2/apache2.conf
-    - httpd_conf: /etc/httpd/conf/httpd.conf
+    # Debian: 
+    - httpd_conf: /etc/apache2/apache2.conf
+    - httpd_group: www-data
+    # CentOS:  
+    # - httpd_conf: /etc/httpd/conf/httpd.conf
+    # - httpd_group: apache
     - pip_download: https://bootstrap.pypa.io/get-pip.py
   tasks:
     # The basic required software.
@@ -68,7 +72,7 @@
     - name: app readable by apache
       file: 
         path="{{ app_home }}"
-        group=apache
+        group="{{ httpd_group }}"
         recurse=yes
         mode=776
     - file:
