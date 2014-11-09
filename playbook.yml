@@ -11,13 +11,21 @@
     - pip_download: https://bootstrap.pypa.io/get-pip.py
   tasks:
     # The basic required software.
-    - yum:
+    # - yum:
+    #    name="{{ item }}"
+    #    state=installed
+    #  with_items:
+    #    - git-core
+    #    - python
+    #    - mod_wsgi
+    - apt:
         name="{{ item }}"
         state=installed
       with_items:
-        - git-core
-        - python
-        - mod_wsgi
+        - apache2
+        - git
+        - libapache2-mod-wsgi
+        - python-pip
     # Specific libraries for this application.
     - name: install pip
       shell: "curl {{ pip_download }} | python -"

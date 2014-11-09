@@ -2,8 +2,8 @@
 #  Variables you might want to modify
 ########################################
 
-HOSTNAME=learn.delaporte.us
-# HOSTNAME=sydeswype
+# HOSTNAME=learn.delaporte.us
+HOSTNAME=ansible-ratchet
 WWW_PASSWORD_FILE=/var/www/passwords
 
 ########################################
@@ -55,7 +55,7 @@ git_push:
 	git push
 
 deploy: git_push
-	ansible-playbook playbook.yml --extra-vars="hosts=$(HOSTNAME)"
+	ansible-playbook -vv playbook.yml --extra-vars="hosts=$(HOSTNAME)"
 
 fix: git_push
 	ansible-playbook playbook.yml --tags=fixed --extra-vars="hosts=$(HOSTNAME)"
