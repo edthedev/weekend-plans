@@ -6,6 +6,11 @@
 HOSTNAME=ansible-ratchet
 WWW_PASSWORD_FILE=/var/www/passwords
 
+# Debian
+APACHE_SVC=apache2
+# Centos
+# APACHE_SVC=httpd
+
 ########################################
 #  Computed variables
 ########################################
@@ -61,10 +66,10 @@ fix: git_push
 	ansible-playbook playbook.yml --tags=fixed --extra-vars="hosts=$(HOSTNAME)"
 
 restart_apache:
-	ansible $(HOSTNAME) -m service -a "name=httpd state=restarted"
+	ansible $(HOSTNAME) -m service -a "name=$(APACHE_SVC) state=restarted"
 
 stop_apache:
-	ansible $(HOSTNAME) -m service -a "name=httpd state=stopped"
+	ansible $(HOSTNAME) -m service -a "name=$(APACHE_SVC) state=stopped"
 
 set_password:
 	ssh $(HOSTNAME) 'htpasswd -b -c $(WWW_PASSWORD_FILE) $(USERNAME) $(PASSWORD)'
