@@ -26,3 +26,11 @@ Deploy the app::
     # push local copy of database up...
     make set_password USERNAME=bob PASSWORD=12345
 
+Manually copy the httpd.conf.example bit into the httpd.conf.::
+
+    scp httpd.conf.example ansible-host:~
+    ssh ansible-host
+    # Debian
+    cat ~/httpd.conf.example >> /etc/apache2/apache2.conf
+    # CentOS
+    cat ~/httpd.conf.example >> /etc/httpd/conf/httpd.conf
