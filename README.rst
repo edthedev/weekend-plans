@@ -14,7 +14,12 @@ To run the local server::
 
 Deploying
 ----------
-Edit playbook.yml for either Debian or CentOS.
+Edit your .ssh/config to add your host, port and user. This recipe expects that user to have some privileges, naturally.
+Edit /etc/ansible/hosts to add your host (your can use the shortname from you .ssh/config)
+Edit Makefile to update the hostname there, as well (you can also use the shortname here...)
+Edit playbook.yml for either Debian or CentOS (uncomment the appropriate variables and apt or yum section)
+
+Deploy the app::
 
     make deploy
     # (optional)
