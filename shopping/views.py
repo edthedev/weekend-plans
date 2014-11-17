@@ -1,55 +1,68 @@
 ''' Shopping Views '''
-from django.shortcuts import redirect
+# Python imports
+from datetime import datetime
+
+# Django imports
+# from django.shortcuts import redirect
 from django.forms import ModelForm
 from django.views.generic.list import ListView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormMixin
 
 # from datetimewidget.widgets import DateWidget
 
+# App imports
 from shopping.models import PlanToBuy
-
-from datetime import datetime
 
 class ShoppingForm(ModelForm):
     class Meta:
         model = PlanToBuy
-#        widgets = {
-#Use localization and bootstrap 3
-#            'datetime': DateWidget(
-#                attrs={'id':"yourdatetimeid"},
-#                usel10n = True,
-#                bootstrap_version=3)
-#        }
 
-class ShoppingView(FormView):
-    template_name = 'shopping/shopping_list.html'
+class AddListView(FormMixin, ListView):
+    ''' Show the list of non-completed plans. '''
+    model = None
+    template_name = None
+    queryset = None
     form_class = ShoppingForm
 
-    def get_context_data(self, **kwargs):
-        ''' Include a list'''
-        context = super(ShoppingView, self).get_context_data(**kwargs)
-        context['shopping_list'] = \
-                PlanToBuy.objects.filter(bought__isnull=True).order_by('added', 'name')
-
-class ListPlanToBuy(ListView):
-    ''' Show the list of non-completed plans. '''
-    template_name = 'shopping/shopping_list.html'
-    queryset = \
-        PlanToBuy.objects.filter(bought__isnull=True).order_by('added', 'name')
-
     def post(self, request, *args, **kwargs):
-        ''' Special handling for 'Bought' action. '''
+        ''' Special handling for different forms. '''
+        if 'action' in request.POST:
+            if 'add' in request.POST['action']:
+            #    pk = kwargs['pk']
+            #    plan = self.model.objects.get(pk=pk)
+            #    plan.save()
+                form_class = self.get_form_class()
+                form = self.get_form(form_class)
+                if form.is_valid():
+                    form.save()
+                else:
+                    return self.form_invalid(form)
 
-        if 'Bought' in request.POST['action']:
-            pk = kwargs['pk']
-            plan = PlanToBuy.objects.get(pk=pk)
-            plan.bought = datetime.now()
-            plan.save()
-        return redirect('list_plans')
+            if 'completed' in request.POST['action']:
+                pk = kwargs['pk']
+                plan = self.model.objects.get(pk=pk)
+                plan.completed = datetime.now()
+                plan.save()
+            if 'delete' in request.POST['action']:
+                pk = kwargs['pk']
+                plan = self.model.objects.get(pk=pk)
+                plan.delete()
+        return self.get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         ''' Include the edit for below. '''
-        context = super(ListPlanToBuy, self).get_context_data(**kwargs)
-        context['form'] = ShoppingForm
+        context = super(AddListView, self).get_context_data(**kwargs)
+        context['form'] = self.create_form
         return context
 
+class CreateForm(ModelForm):
+    class Meta:
+        model = PlanToBuy
+
+class ShoppingListView(AddListView):
+    template_name = 'shopping/shopping_list.html'
+    queryset = \
+        PlanToBuy.objects.filter(bought__isnull=True).order_by('added', 'name')
+    url = 'shopping'
+    create_form = CreateForm
+    success_url = '/shopping/'
