@@ -11,9 +11,10 @@
 <!-- Add Form -->
 <h2> Add items:  </h2>
 <div>
-<form method="POST" action="{% url 'shopping' %}"> 
+	<form method="POST" action="">
 {% csrf_token %}
-{{ form }}
+{{ form.as_p }}
+<input type="hidden" name="action" value="add">
 <input type="submit" class="btn btn-primary" value="Add">
 </form>
 </div>
@@ -21,9 +22,9 @@
 
 <!-- List -->
 <h2> Shopping Plan</h2>
-{% if plantobuy_list %}
+{% if shopping_list%}
 <ul class='list'>
-{% for plan in plantobuy_list %}
+{% for plan in shopping_list %}
 <li id='plan-item'>
 <span class='when'>{{ plan.added }}</span> - <span class='what'>{{ plan.name }}</span>
 <span>
