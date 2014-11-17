@@ -32,6 +32,9 @@ database: venv
 runserver: venv database
 	$(VPYTHON) $(BASEDIR)/manage.py runserver
 
+open:
+	open http://127.0.0.1:8000/
+
 ########################################
 #  Database tasks
 ########################################
@@ -76,3 +79,5 @@ set_password:
 
 # Call it like this:
 #      make set_password USERNAME=leslie PASSWORD=12345
+#
+
