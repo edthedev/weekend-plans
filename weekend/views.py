@@ -14,6 +14,8 @@ from django.views.generic.edit import UpdateView
 # App libraries
 from weekend.models import WeekendPlan
 
+DATE_FORMAT = '%m/%d/%Y %H:%M'
+
 class CreateForm(ModelForm):
     class Meta:
         model = WeekendPlan
@@ -53,6 +55,7 @@ class ListPlans(ListView):
         ''' Include the edit for below. '''
         context = super(ListPlans, self).get_context_data(**kwargs)
         context['form'] = CreateForm
+        context['today'] = datetime.today().strftime(DATE_FORMAT)
         return context
 
 class CreatePlan(CreateView):
