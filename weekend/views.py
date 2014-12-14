@@ -36,7 +36,7 @@ class ListCompletedPlans(ListView):
         Should be a middleware now, since am using it twice.
         But I don't care.
         '''
-        context = super(ListPlans, self).get_context_data(**kwargs)
+        context = ListView.get_context_data(self, **kwargs)
         context['today'] = datetime.today().strftime(DATE_FORMAT)
         return context
 
