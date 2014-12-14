@@ -29,6 +29,17 @@ class ListCompletedPlans(ListView):
                 completed__isnull=False).order_by('-completed', 'what_to_do')
     # paginate_by = 10
 
+
+    def get_context_data(self, **kwargs):
+        ''' Include today's date. 
+        
+        Should be a middleware now, since am using it twice.
+        But I don't care.
+        '''
+        context = ListView.get_context_data(self, **kwargs)
+        context['today'] = datetime.today().strftime(DATE_FORMAT)
+        return context
+
 class ListPlans(ListView):
     ''' Show the list of non-completed plans. '''
     # model = WeekendPlan
@@ -45,6 +56,7 @@ class ListPlans(ListView):
             plan = WeekendPlan.objects.get(pk=pk)
             plan.completed = datetime.now()
             plan.save()
+            return redirect('completed_plans')
         if 'Delete' in request.POST['action']:
             pk = kwargs['pk']
             plan = WeekendPlan.objects.get(pk=pk)
@@ -62,6 +74,17 @@ class CreatePlan(CreateView):
     model = WeekendPlan
     success_url = reverse_lazy('list_plans')
     form_class = CreateForm
+
+    def post(self, request, *args, **kwargs):
+        ''' Special handling for 'complete' action. '''
+        # response = super(CreatePlan, self).post(self, request, *args, **kwargs)
+        response = CreateView.post(self, request, *args, **kwargs)
+
+        # Go to the completed page if we just created an already complete plan.
+        if 'completed' in request.POST:
+            return redirect('completed_plans')
+
+        return response
 
 class EditPlan(UpdateView):
     ''' Edit view for a weekend plan. '''

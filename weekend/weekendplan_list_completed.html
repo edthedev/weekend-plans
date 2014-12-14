@@ -2,11 +2,20 @@
 {% block title %}Completed Weekend Plans{% endblock %}
 {% block content %}
 
+<!-- Log Form -->
+<h2> Log a completed plan. </h2> 
+<div>
+<form method="POST" action="{% url 'create_plan' %}">
+{% csrf_token %}
+<label for="id_what_to_do">What to do:</label> <input id="id_what_to_do" maxlength="200" name="what_to_do" type="text" />
+<input type=hidden id="id_completed" name="completed" value="{{ today }}"/>
+<input type="submit" class="btn btn-primary" value="Log">
+</form>
+</div>
 
 <!-- Automatic List sorter -->
 <div id="plan-list">
 <p> Filter your plans: <input class="search" /></p>
-
 
 <!-- Another list - Complete plans -->
 <h2> Completed plans </h2>
