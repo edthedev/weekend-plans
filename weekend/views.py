@@ -45,6 +45,7 @@ class ListPlans(ListView):
             plan = WeekendPlan.objects.get(pk=pk)
             plan.completed = datetime.now()
             plan.save()
+            return redirect('completed_plans')
         if 'Delete' in request.POST['action']:
             pk = kwargs['pk']
             plan = WeekendPlan.objects.get(pk=pk)
@@ -62,6 +63,16 @@ class CreatePlan(CreateView):
     model = WeekendPlan
     success_url = reverse_lazy('list_plans')
     form_class = CreateForm
+
+    def post(self, request, *args, **kwargs):
+        ''' Special handling for 'complete' action. '''
+
+        # Go to the completed page if we just created an already complete plan.
+        if 'completed' in request.POST:
+            return redirect('completed_plans')
+
+        response = super(CreatePlan, self).post(self, request, *args, **kwargs)
+        return response
 
 class EditPlan(UpdateView):
     ''' Edit view for a weekend plan. '''
