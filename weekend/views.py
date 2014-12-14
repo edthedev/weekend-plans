@@ -66,12 +66,12 @@ class CreatePlan(CreateView):
 
     def post(self, request, *args, **kwargs):
         ''' Special handling for 'complete' action. '''
+        response = super(CreatePlan, self).post(self, request, *args, **kwargs)
 
         # Go to the completed page if we just created an already complete plan.
         if 'completed' in request.POST:
             return redirect('completed_plans')
 
-        response = super(CreatePlan, self).post(self, request, *args, **kwargs)
         return response
 
 class EditPlan(UpdateView):
