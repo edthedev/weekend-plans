@@ -29,6 +29,17 @@ class ListCompletedPlans(ListView):
                 completed__isnull=False).order_by('-completed', 'what_to_do')
     # paginate_by = 10
 
+
+    def get_context_data(self, **kwargs):
+        ''' Include today's date. 
+        
+        Should be a middleware now, since am using it twice.
+        But I don't care.
+        '''
+        context = super(ListPlans, self).get_context_data(**kwargs)
+        context['today'] = datetime.today().strftime(DATE_FORMAT)
+        return context
+
 class ListPlans(ListView):
     ''' Show the list of non-completed plans. '''
     # model = WeekendPlan
@@ -66,7 +77,6 @@ class CreatePlan(CreateView):
 
     def post(self, request, *args, **kwargs):
         ''' Special handling for 'complete' action. '''
-        # import pdb; pdb.set_trace()
         # response = super(CreatePlan, self).post(self, request, *args, **kwargs)
         response = CreateView.post(self, request, *args, **kwargs)
 

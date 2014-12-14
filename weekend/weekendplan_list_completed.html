@@ -5,11 +5,9 @@
 <!-- Log Form -->
 <h2> Log a completed plan. </h2> 
 <div>
-	<form method="POST" action="{% url 'create_plan' %}">
+<form method="POST" action="{% url 'create_plan' %}">
 {% csrf_token %}
-<ul>
-<li><label for="id_what_to_do">What to do:</label> <input id="id_what_to_do" maxlength="200" name="what_to_do" type="text" /></li>
-</ul>
+<label for="id_what_to_do">What to do:</label> <input id="id_what_to_do" maxlength="200" name="what_to_do" type="text" />
 <input type=hidden id="id_completed" name="completed" value="{{ today }}"/>
 <input type="submit" class="btn btn-primary" value="Log">
 </form>
