@@ -82,7 +82,8 @@ class CreatePlan(CreateView):
 
         # Go to the completed page if we just created an already complete plan.
         if 'completed' in request.POST:
-            return redirect('completed_plans')
+            if request.POST['completed'] != '':
+                return redirect('completed_plans')
 
         return response
 
