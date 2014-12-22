@@ -25,7 +25,10 @@
 <ul class='list'>
 {% for weekendplan in weekendplan_list %}
 <li id='plan-item'>
-<span class='when'>{{ weekendplan.completed }}</span> - <span class='what'>{{ weekendplan.what_to_do }}</span>
+<a href="{% url 'edit_plan' weekendplan.pk %}">
+<span class='when'>
+		{{ weekendplan.completed }}</span> - <span class='what'>{{ weekendplan.what_to_do }}</span>
+</a>
 </li>
 {% endfor %}
 
