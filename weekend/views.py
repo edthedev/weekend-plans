@@ -52,11 +52,17 @@ class ListPlans(ListView):
         ''' Special handling for 'complete' action. '''
         # response = super(ListPlans, self).post(self, request, *args, **kwargs)
         if 'Completed' in request.POST['action']:
+            # Just completed a task...
             pk = kwargs['pk']
             plan = WeekendPlan.objects.get(pk=pk)
             plan.completed = datetime.now()
             plan.save()
-            return redirect('completed_plans')
+            if not plan.when:
+                # Logged tasks should redirect to 'completed plans page'
+                #   for more convenient logging and list review.
+                return redirect('completed_plans')
+                # Plans with a 'when' were not just logged, and user
+                #   probably wants to review the list of incomplete items instead.
         if 'Delete' in request.POST['action']:
             pk = kwargs['pk']
             plan = WeekendPlan.objects.get(pk=pk)

@@ -40,7 +40,6 @@ INSTALLED_APPS = (
     'rest_framework',
     'debug_toolbar',
     'weekend',
-    'shopping',
 )
 
 MIDDLEWARE_CLASSES = (
