@@ -58,6 +58,8 @@ init_south_shopping: venv
 ########################################
 #  Deployment Tasks
 ########################################
+edit:
+	vim weekend/views.py weekend/weekendplan_list.html
 
 git_push:
 	git push
