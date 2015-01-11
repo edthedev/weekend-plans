@@ -50,6 +50,7 @@
 <a href="{% url 'edit_plan' weekendplan.pk %}"><button class='btn' type='button'>Modify</button></a>
 {% csrf_token %}
 <input type="submit" name="action" value="Completed" class='btn btn-primary'></input>
+<input type="submit" name="action" value="Later" class='btn'></input>
 </div>
 </form>
 </p>
