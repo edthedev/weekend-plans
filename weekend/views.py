@@ -50,7 +50,12 @@ class ListPlans(ListView):
 
     def post(self, request, *args, **kwargs):
         ''' Special handling for 'complete' action. '''
-        # response = super(ListPlans, self).post(self, request, *args, **kwargs)
+        if 'Later' in request.POST['action']:
+            pk = kwargs['pk']
+            plan = WeekendPlan.objects.get(pk=pk)
+            plan.when = None
+            plan.save()
+
         if 'Completed' in request.POST['action']:
             # Just completed a task...
             pk = kwargs['pk']
